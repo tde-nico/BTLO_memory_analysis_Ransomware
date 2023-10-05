@@ -1,0 +1,27 @@
+vol -f infected.vmem imageinfo
+  Win7SP1x86_23418, Win7SP0x86, Win7SP1x86
+
+Run “vol.py -f infected.vmem --profile=Win7SP1x86 psscan” that will list all processes. What is the name of the suspicious process?
+vol -f infected.vmem --profile=Win7SP1x86 psscan
+  @WanaDecryptor
+
+What is the parent process ID for the suspicious process?
+  2732
+
+What is the initial malicious executable that created this process?
+  or4qtckT.exe
+
+If you drill down on the suspicious PID (vol.py -f infected.vmem --profile=Win7SP1x86 psscan | grep (PIDhere)), find the process used to delete files
+  taskdl.exe
+
+Find the path where the malicious file was first executed
+vol -f infected.vmem --profile=Win7SP1x86 dlllist -p 2732
+  C:\Users\hacker\Desktop\or4qtckT.exe
+
+Can you identify what ransomware it is? (Do your research!)
+  WannaCry
+
+What is the filename for the file with the ransomware public key that was used to encrypt the private key? (.eky extension)
+vol -f infected.vmem --profile=Win7SP1x86 handles -p 2732
+  00000000.eky
+
